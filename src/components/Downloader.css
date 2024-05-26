@@ -1,0 +1,56 @@
+/* frontend/src/Downloader.css */
+
+.container {
+    text-align: center;
+    margin: 50px auto;
+    max-width: 600px;
+}
+
+.heading {
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.formContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.input {
+    padding: 10px;
+    width: 300px;
+    margin-right: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.thumbnailContainer {
+    margin-top: 20px;
+}
+
+.thumbnail {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+}
