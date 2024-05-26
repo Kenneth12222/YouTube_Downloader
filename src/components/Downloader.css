@@ -1,56 +1,77 @@
 /* frontend/src/Downloader.css */
 
-.container {
-    text-align: center;
+/* General styles */
+.downloader {
+    max-width: 800px;
     margin: 50px auto;
-    max-width: 600px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
 }
 
-.heading {
-    margin-bottom: 20px;
-    font-size: 28px;
-    font-weight: bold;
+.title {
+    text-align: center;
+    color: #007bff;
 }
 
-.formContainer {
+.input-container {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
 }
 
-.input {
+.input-url {
     padding: 10px;
-    width: 300px;
-    margin-right: 10px;
-    border-radius: 4px;
+    width: 400px;
     border: 1px solid #ccc;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     font-size: 16px;
-    box-sizing: border-box;
 }
 
-.button {
+.download-button {
     padding: 10px 20px;
-    border-radius: 4px;
-    border: none;
     background-color: #007bff;
-    color: #fff;
-    font-size: 16px;
+    color: white;
+    border: none;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
 }
 
-.thumbnailContainer {
-    margin-top: 20px;
+.download-button:hover {
+    background-color: #0056b3;
 }
 
-.thumbnail {
-    max-width: 100%;
-    height: auto;
-    border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.error {
+.error-message {
     color: red;
-    margin-top: 10px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+/* Video preview styles */
+.video-preview {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
 }

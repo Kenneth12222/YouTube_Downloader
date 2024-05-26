@@ -51,28 +51,32 @@ function Downloader() {
 
     return (
         <div className="downloader">
-            <h1>YouTube Video Downloader</h1>
-            <input
-                type="text"
-                value={url}
-                onChange={handleUrlChange}
-                placeholder="Enter YouTube URL"
-                className="input-url"
-            />
-            <button onClick={downloadVideo} className="download-button">Download</button>
+            <h1 className="title">YouTube Video Downloader</h1>
+            <div className="input-container">
+                <input
+                    type="text"
+                    value={url}
+                    onChange={handleUrlChange}
+                    placeholder="Enter YouTube URL"
+                    className="input-url"
+                />
+                <button onClick={downloadVideo} className="download-button">Download</button>
+            </div>
             {error && <p className="error-message">{error}</p>}
             {videoId && (
                 <div className="video-preview">
                     <h2>Video Preview</h2>
-                    <iframe
-                        width="560"
-                        height="315"
-                        src={`https://www.youtube.com/embed/${videoId}`}
-                        title="YouTube video preview"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                    ></iframe>
+                    <div className="video-container">
+                        <iframe
+                            width="560"
+                            height="315"
+                            src={`https://www.youtube.com/embed/${videoId}`}
+                            title="YouTube video preview"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                        ></iframe>
+                    </div>
                 </div>
             )}
         </div>
