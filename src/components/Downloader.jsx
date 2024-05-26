@@ -1,37 +1,12 @@
 // frontend/src/Downloader.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import './Downloader.css';
 
-const Downloader = () => {
+function Downloader() {
     const [url, setUrl] = useState('');
     const [error, setError] = useState('');
-    const [videoThumbnail, setVideoThumbnail] = useState(null);
-
-    useEffect(() => {
-        if (url) {
-            fetchVideoThumbnail();
-        } else {
-            setVideoThumbnail(null);
-        }
-    }, [url]);
-
-    const fetchVideoThumbnail = async () => {
-        try {
-            const response = await axios.get('http://localhost:5000/video_info', {
-                params: { url }
-            });
-
-            if (!response || !response.data || !response.data.thumbnail) {
-                throw new Error('Thumbnail not found');
-            }
-
-            setVideoThumbnail(response.data.thumbnail);
-        } catch (error) {
-            setVideoThumbnail(null);
-            console.error('Error fetching video thumbnail:', error.message);
-        }
-    };
+    const [videoId, setVideoId] = useState('');
 
     const downloadVideo = async () => {
         setError('');
@@ -41,7 +16,7 @@ const Downloader = () => {
         }
 
         try {
-            const response = await axios.get('http://localhost:5000/download', {
+            const response = await axios.get('https://youtube-downloader-python-backend.onrender.com/download', {
                 params: { url },
                 responseType: 'blob'
             });
@@ -62,27 +37,46 @@ const Downloader = () => {
         }
     };
 
+    const handleUrlChange = (e) => {
+        const inputUrl = e.target.value;
+        setUrl(inputUrl);
+
+        const videoIdMatch = inputUrl.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+        if (videoIdMatch) {
+            setVideoId(videoIdMatch[1]);
+        } else {
+            setVideoId('');
+        }
+    };
+
     return (
-        <div className="container">
-            <h1 className="heading">YouTube Video Downloader</h1>
-            <div className="formContainer">
-                <input
-                    type="text"
-                    value={url}
-                    onChange={(e) => setUrl(e.target.value)}
-                    placeholder="Enter YouTube URL"
-                    className="input"
-                />
-                <button onClick={downloadVideo} className="button">Download</button>
-            </div>
-            {videoThumbnail && (
-                <div className="thumbnailContainer">
-                    <img src={videoThumbnail} alt="Video Thumbnail" className="thumbnail" />
+        <div className="downloader">
+            <h1>YouTube Video Downloader</h1>
+            <input
+                type="text"
+                value={url}
+                onChange={handleUrlChange}
+                placeholder="Enter YouTube URL"
+                className="input-url"
+            />
+            <button onClick={downloadVideo} className="download-button">Download</button>
+            {error && <p className="error-message">{error}</p>}
+            {videoId && (
+                <div className="video-preview">
+                    <h2>Video Preview</h2>
+                    <iframe
+                        width="560"
+                        height="315"
+                        src={`https://www.youtube.com/embed/${videoId}`}
+                        title="YouTube video preview"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                    ></iframe>
                 </div>
             )}
-            {error && <p className="error">{error}</p>}
         </div>
     );
-};
+}
 
 export default Downloader;
